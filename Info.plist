@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleExecutable</key>
+    <string>DeliVerb</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.deliverb.audiounit</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>DeliVerb</string>
+    <key>CFBundlePackageType</key>
+    <string>BNDL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright. All rights reserved.</string>
+
+    <!-- Audio Unit Component Registration -->
+    <key>AudioComponents</key>
+    <array>
+        <dict>
+            <key>name</key>
+            <string>DeliVerb: DeliVerb</string>
+            <key>description</key>
+            <string>DeliVerb Delay-Reverb with Ducking</string>
+            <key>factoryFunction</key>
+            <string>DeliVerbAUv2Factory</string>
+            <key>type</key>
+            <string>aufx</string>
+            <key>subtype</key>
+            <string>dlvb</string>
+            <key>manufacturer</key>
+            <string>DlVb</string>
+            <key>version</key>
+            <integer>65536</integer>
+            <key>sandboxSafe</key>
+            <true/>
+            <key>resourceUsage</key>
+            <dict>
+                <key>network.client</key>
+                <false/>
+                <key>temporary-exception.files.all.read-write</key>
+                <false/>
+            </dict>
+            <key>tags</key>
+            <array>
+                <string>Effects</string>
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>

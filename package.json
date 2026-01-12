@@ -1,0 +1,15 @@
+{
+  "name": "deliverb-au",
+  "version": "1.0.0",
+  "description": "DeliVerb Delay-Reverb Audio Unit with Ducking",
+  "private": true,
+  "scripts": {
+    "release": "node scripts/release.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "UNLICENSED"
+}

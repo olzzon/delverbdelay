@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleDisplayName</key>
+    <string>DeliVerb</string>
+    <key>CFBundleExecutable</key>
+    <string>DeliVerbAU</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.deliverb.app.extension</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>DeliVerbAU</string>
+    <key>CFBundlePackageType</key>
+    <string>XPC!</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright. All rights reserved.</string>
+
+    <!-- App Extension Configuration -->
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.AudioUnit-UI</string>
+        <key>NSExtensionPrincipalClass</key>
+        <string>DeliVerbAUViewController</string>
+        <key>NSExtensionAttributes</key>
+        <dict>
+            <key>AudioComponents</key>
+            <array>
+                <dict>
+                    <key>name</key>
+                    <string>DeliVerb: DeliVerb</string>
+                    <key>description</key>
+                    <string>DeliVerb Delay-Reverb with Ducking</string>
+                    <key>type</key>
+                    <string>aufx</string>
+                    <key>subtype</key>
+                    <string>dlvb</string>
+                    <key>manufacturer</key>
+                    <string>DlVb</string>
+                    <key>version</key>
+                    <integer>65536</integer>
+                    <key>sandboxSafe</key>
+                    <true/>
+                    <key>tags</key>
+                    <array>
+                        <string>Effects</string>
+                    </array>
+                </dict>
+            </array>
+        </dict>
+    </dict>
+</dict>
+</plist>
