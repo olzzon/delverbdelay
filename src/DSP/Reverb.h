@@ -44,6 +44,8 @@ public:
         m_inputLowCutR.setSampleRate(sampleRate);
         m_inputHighCutL.setSampleRate(sampleRate);
         m_inputHighCutR.setSampleRate(sampleRate);
+        m_inputScoopL.setSampleRate(sampleRate);
+        m_inputScoopR.setSampleRate(sampleRate);
 
         updateParameters();
     }
@@ -68,12 +70,19 @@ public:
         updateFilters();
     }
 
+    void setScoopAmount(float amount) {
+        m_scoopAmount = std::max(0.0f, std::min(1.0f, amount));
+        updateFilters();
+    }
+
     void process(float inputL, float inputR, float& outputL, float& outputR) {
         // Apply input filters
         float filteredL = m_inputLowCutL.process(inputL);
         filteredL = m_inputHighCutL.process(filteredL);
+        filteredL = m_inputScoopL.process(filteredL);
         float filteredR = m_inputLowCutR.process(inputR);
         filteredR = m_inputHighCutR.process(filteredR);
+        filteredR = m_inputScoopR.process(filteredR);
 
         // Pre-delay (increases with size)
         float preDelayMs = 5.0f + m_size * 40.0f;
@@ -130,6 +139,8 @@ public:
         m_inputLowCutR.reset();
         m_inputHighCutL.reset();
         m_inputHighCutR.reset();
+        m_inputScoopL.reset();
+        m_inputScoopR.reset();
     }
 
 private:
@@ -190,6 +201,11 @@ private:
         m_inputLowCutR.setCoefficients(Biquad::Type::HighPass, m_lowCutFreq, 0.707);
         m_inputHighCutL.setCoefficients(Biquad::Type::LowPass, m_highCutFreq, 0.707);
         m_inputHighCutR.setCoefficients(Biquad::Type::LowPass, m_highCutFreq, 0.707);
+
+        // Scoop filter (500Hz center, -12dB max cut)
+        float scoopGain = m_scoopAmount * -12.0f;
+        m_inputScoopL.setCoefficients(Biquad::Type::Peak, 500.0, 0.7, scoopGain);
+        m_inputScoopR.setCoefficients(Biquad::Type::Peak, 500.0, 0.7, scoopGain);
     }
 
     double m_sampleRate = 44100.0;
@@ -199,6 +215,7 @@ private:
     float m_style = 0.0f;      // Classic (0) to Atmospheric (1)
     float m_lowCutFreq = 100.0f;
     float m_highCutFreq = 10000.0f;
+    float m_scoopAmount = 0.0f; // Scoop amount (0-1)
 
     // Derived parameters
     float m_allpassDelays[kNumAllpass];
@@ -221,6 +238,8 @@ private:
     Biquad m_inputLowCutR;
     Biquad m_inputHighCutL;
     Biquad m_inputHighCutR;
+    Biquad m_inputScoopL;
+    Biquad m_inputScoopR;
 };
 
 } // namespace DeliVerb

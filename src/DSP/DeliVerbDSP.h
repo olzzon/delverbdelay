@@ -27,10 +27,12 @@ public:
         // Delay filters (advanced)
         kDelayLowCut,        // Delay low cut frequency
         kDelayHighCut,       // Delay high cut frequency
+        kDelayScoopAmount,   // Delay scoop amount (0-1)
 
         // Reverb filters (advanced)
         kReverbLowCut,       // Reverb low cut frequency
         kReverbHighCut,      // Reverb high cut frequency
+        kReverbScoopAmount,  // Reverb scoop amount (0-1)
 
         // Ducking (advanced)
         kDuckDelayAmount,    // Delay ducking amount (0-1)
@@ -67,6 +69,8 @@ public:
         m_delayLowCutR.setSampleRate(sampleRate);
         m_delayHighCutL.setSampleRate(sampleRate);
         m_delayHighCutR.setSampleRate(sampleRate);
+        m_delayScoopL.setSampleRate(sampleRate);
+        m_delayScoopR.setSampleRate(sampleRate);
 
         // Anti-aliasing filter for delay feedback
         m_delayFeedbackFilterL.setSampleRate(sampleRate);
@@ -87,8 +91,10 @@ public:
             case kReverbMix:        m_reverbMix = value; break;
             case kDelayLowCut:      m_delayLowCut = value; break;
             case kDelayHighCut:     m_delayHighCut = value; break;
+            case kDelayScoopAmount: m_delayScoopAmount = value; break;
             case kReverbLowCut:     m_reverbLowCut = value; break;
             case kReverbHighCut:    m_reverbHighCut = value; break;
+            case kReverbScoopAmount: m_reverbScoopAmount = value; break;
             case kDuckDelayAmount:  m_duckDelayAmount = value; break;
             case kDuckReverbAmount: m_duckReverbAmount = value; break;
             case kDuckBehaviour:    m_duckBehaviour = value; break;
@@ -108,8 +114,10 @@ public:
             case kReverbMix:        return m_reverbMix;
             case kDelayLowCut:      return m_delayLowCut;
             case kDelayHighCut:     return m_delayHighCut;
+            case kDelayScoopAmount: return m_delayScoopAmount;
             case kReverbLowCut:     return m_reverbLowCut;
             case kReverbHighCut:    return m_reverbHighCut;
+            case kReverbScoopAmount: return m_reverbScoopAmount;
             case kDuckDelayAmount:  return m_duckDelayAmount;
             case kDuckReverbAmount: return m_duckReverbAmount;
             case kDuckBehaviour:    return m_duckBehaviour;
@@ -137,8 +145,10 @@ public:
             // Apply delay filters
             delayedL = m_delayLowCutL.process(delayedL);
             delayedL = m_delayHighCutL.process(delayedL);
+            delayedL = m_delayScoopL.process(delayedL);
             delayedR = m_delayLowCutR.process(delayedR);
             delayedR = m_delayHighCutR.process(delayedR);
+            delayedR = m_delayScoopR.process(delayedR);
 
             // Apply ducking to delay
             float delayWetL = delayedL * delayGain;
@@ -199,8 +209,10 @@ public:
             // Apply delay filters
             delayedL = m_delayLowCutL.process(delayedL);
             delayedL = m_delayHighCutL.process(delayedL);
+            delayedL = m_delayScoopL.process(delayedL);
             delayedR = m_delayLowCutR.process(delayedR);
             delayedR = m_delayHighCutR.process(delayedR);
+            delayedR = m_delayScoopR.process(delayedR);
 
             // Apply ducking
             float delayWetL = delayedL * delayGain;
@@ -249,6 +261,8 @@ public:
         m_delayLowCutR.reset();
         m_delayHighCutL.reset();
         m_delayHighCutR.reset();
+        m_delayScoopL.reset();
+        m_delayScoopR.reset();
         m_delayFeedbackFilterL.reset();
         m_delayFeedbackFilterR.reset();
     }
@@ -265,8 +279,10 @@ private:
 
         m_delayLowCut = 80.0f;
         m_delayHighCut = 8000.0f;
+        m_delayScoopAmount = 0.0f;
         m_reverbLowCut = 100.0f;
         m_reverbHighCut = 10000.0f;
+        m_reverbScoopAmount = 0.0f;
 
         m_duckDelayAmount = 0.0f;
         m_duckReverbAmount = 0.0f;
@@ -281,12 +297,18 @@ private:
         m_reverb.setStyle(m_reverbStyle);
         m_reverb.setLowCut(m_reverbLowCut);
         m_reverb.setHighCut(m_reverbHighCut);
+        m_reverb.setScoopAmount(m_reverbScoopAmount);
 
         // Update delay filters
         m_delayLowCutL.setCoefficients(Biquad::Type::HighPass, m_delayLowCut, 0.707);
         m_delayLowCutR.setCoefficients(Biquad::Type::HighPass, m_delayLowCut, 0.707);
         m_delayHighCutL.setCoefficients(Biquad::Type::LowPass, m_delayHighCut, 0.707);
         m_delayHighCutR.setCoefficients(Biquad::Type::LowPass, m_delayHighCut, 0.707);
+
+        // Update delay scoop filter (500Hz center, -12dB max cut)
+        float delayScoopGain = m_delayScoopAmount * -12.0f;
+        m_delayScoopL.setCoefficients(Biquad::Type::Peak, 500.0, 0.7, delayScoopGain);
+        m_delayScoopR.setCoefficients(Biquad::Type::Peak, 500.0, 0.7, delayScoopGain);
 
         // Update ducker
         m_ducker.setDelayAmount(m_duckDelayAmount);
@@ -305,8 +327,10 @@ private:
     float m_reverbMix;
     float m_delayLowCut;
     float m_delayHighCut;
+    float m_delayScoopAmount;
     float m_reverbLowCut;
     float m_reverbHighCut;
+    float m_reverbScoopAmount;
     float m_duckDelayAmount;
     float m_duckReverbAmount;
     float m_duckBehaviour;
@@ -323,6 +347,8 @@ private:
     Biquad m_delayLowCutR;
     Biquad m_delayHighCutL;
     Biquad m_delayHighCutR;
+    Biquad m_delayScoopL;
+    Biquad m_delayScoopR;
     Biquad m_delayFeedbackFilterL;
     Biquad m_delayFeedbackFilterR;
 };

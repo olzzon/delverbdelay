@@ -17,10 +17,12 @@ enum ParameterAddress : AUParameterAddress {
     // Advanced delay parameters
     kParamDelayLowCut,
     kParamDelayHighCut,
+    kParamDelayScoopAmount,
 
     // Advanced reverb parameters
     kParamReverbLowCut,
     kParamReverbHighCut,
+    kParamReverbScoopAmount,
 
     // Ducking parameters
     kParamDuckDelayAmount,
@@ -57,10 +59,12 @@ static const ParameterInfo kParameterInfos[] = {
     // Advanced delay parameters
     { "delayLowCut",  "Delay Low Cut",  20.0f,   2000.0f, 80.0f,   kAudioUnitParameterUnit_Hertz, true },
     { "delayHighCut", "Delay High Cut", 1000.0f, 20000.0f, 8000.0f, kAudioUnitParameterUnit_Hertz, true },
+    { "delayScoopAmount", "Delay Scoop", 0.0f, 1.0f, 0.0f, kAudioUnitParameterUnit_Generic, true },
 
     // Advanced reverb parameters
     { "reverbLowCut",  "Reverb Low Cut",  20.0f,   2000.0f, 100.0f,  kAudioUnitParameterUnit_Hertz, true },
     { "reverbHighCut", "Reverb High Cut", 1000.0f, 20000.0f, 10000.0f, kAudioUnitParameterUnit_Hertz, true },
+    { "reverbScoopAmount", "Reverb Scoop", 0.0f, 1.0f, 0.0f, kAudioUnitParameterUnit_Generic, true },
 
     // Ducking parameters
     { "duckDelayAmount",  "Duck Delay",     0.0f, 1.0f, 0.0f, kAudioUnitParameterUnit_Generic, true },

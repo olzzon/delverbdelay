@@ -27,8 +27,10 @@ using namespace DeliVerb;
 // Advanced filter knobs
 @property (nonatomic, strong) SSKnob *delayLowCutKnob;
 @property (nonatomic, strong) SSKnob *delayHighCutKnob;
+@property (nonatomic, strong) SSKnob *delayScoopKnob;
 @property (nonatomic, strong) SSKnob *reverbLowCutKnob;
 @property (nonatomic, strong) SSKnob *reverbHighCutKnob;
+@property (nonatomic, strong) SSKnob *reverbScoopKnob;
 
 // Ducking knobs
 @property (nonatomic, strong) SSKnob *duckDelayKnob;
@@ -273,10 +275,12 @@ using namespace DeliVerb;
     // Row 3: Delay filters
     _delayLowCutKnob = [self addKnobWithLabel:@"DLY LOW" atX:col1X y:advRow3Y color:Theme::accentColor()];
     _delayHighCutKnob = [self addKnobWithLabel:@"DLY HIGH" atX:col2X y:advRow3Y color:Theme::accentColor()];
+    _delayScoopKnob = [self addKnobWithLabel:@"DLY SCOOP" atX:col3X y:advRow3Y color:Theme::accentColor()];
 
     // Row 4: Reverb filters
     _reverbLowCutKnob = [self addKnobWithLabel:@"REV LOW" atX:col1X y:advRow4Y color:Theme::reverbAccentColor()];
     _reverbHighCutKnob = [self addKnobWithLabel:@"REV HIGH" atX:col2X y:advRow4Y color:Theme::reverbAccentColor()];
+    _reverbScoopKnob = [self addKnobWithLabel:@"REV SCOOP" atX:col3X y:advRow4Y color:Theme::reverbAccentColor()];
 
     // Row 5: Ducking
     _duckDelayKnob = [self addKnobWithLabel:@"DUCK DLY" atX:col1X y:advRow5Y color:Theme::accentColor()];
@@ -292,8 +296,10 @@ using namespace DeliVerb;
     _reverbMixKnob.valueFormat = @"%.2f";
     _delayLowCutKnob.valueFormat = @"%.0f Hz";
     _delayHighCutKnob.valueFormat = @"%.0f Hz";
+    _delayScoopKnob.valueFormat = @"%.2f";
     _reverbLowCutKnob.valueFormat = @"%.0f Hz";
     _reverbHighCutKnob.valueFormat = @"%.0f Hz";
+    _reverbScoopKnob.valueFormat = @"%.2f";
     _duckDelayKnob.valueFormat = @"%.2f";
     _duckReverbKnob.valueFormat = @"%.2f";
     _duckBehaviourKnob.valueFormat = @"%.2f";
@@ -307,8 +313,10 @@ using namespace DeliVerb;
     _reverbMixKnob.hidden = YES;
     _delayLowCutKnob.hidden = YES;
     _delayHighCutKnob.hidden = YES;
+    _delayScoopKnob.hidden = YES;
     _reverbLowCutKnob.hidden = YES;
     _reverbHighCutKnob.hidden = YES;
+    _reverbScoopKnob.hidden = YES;
     _duckDelayKnob.hidden = YES;
     _duckReverbKnob.hidden = YES;
     _duckBehaviourKnob.hidden = YES;
@@ -379,8 +387,10 @@ using namespace DeliVerb;
         _reverbMixKnob.animator.hidden = !show;
         _delayLowCutKnob.animator.hidden = !show;
         _delayHighCutKnob.animator.hidden = !show;
+        _delayScoopKnob.animator.hidden = !show;
         _reverbLowCutKnob.animator.hidden = !show;
         _reverbHighCutKnob.animator.hidden = !show;
+        _reverbScoopKnob.animator.hidden = !show;
         _duckDelayKnob.animator.hidden = !show;
         _duckReverbKnob.animator.hidden = !show;
         _duckBehaviourKnob.animator.hidden = !show;
@@ -420,8 +430,10 @@ using namespace DeliVerb;
     // Bind filter controls
     [_delayLowCutKnob bindToParameter:[parameterTree parameterWithAddress:kParamDelayLowCut] tree:parameterTree];
     [_delayHighCutKnob bindToParameter:[parameterTree parameterWithAddress:kParamDelayHighCut] tree:parameterTree];
+    [_delayScoopKnob bindToParameter:[parameterTree parameterWithAddress:kParamDelayScoopAmount] tree:parameterTree];
     [_reverbLowCutKnob bindToParameter:[parameterTree parameterWithAddress:kParamReverbLowCut] tree:parameterTree];
     [_reverbHighCutKnob bindToParameter:[parameterTree parameterWithAddress:kParamReverbHighCut] tree:parameterTree];
+    [_reverbScoopKnob bindToParameter:[parameterTree parameterWithAddress:kParamReverbScoopAmount] tree:parameterTree];
 
     // Bind ducking controls
     [_duckDelayKnob bindToParameter:[parameterTree parameterWithAddress:kParamDuckDelayAmount] tree:parameterTree];
