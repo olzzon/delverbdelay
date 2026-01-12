@@ -231,11 +231,11 @@ using namespace DeliVerb;
     // Positions calibrated for the pedal image layout
     // Top row: Delay Time, Delay Repeat, Delay Mix
     // Bottom row: Reverb Size, Reverb Style, Reverb Mix
-    CGFloat largeTopY = 521;
-    CGFloat largeBottomY = 384;
+    CGFloat largeTopY = 524;
+    CGFloat largeBottomY = 388;
     CGFloat col1X = width / 4.0 - 2;
-    CGFloat col2X = width / 2.0 + 5;
-    CGFloat col3X = width * 3.0 / 4.0;
+    CGFloat col2X = width / 2.0;
+    CGFloat col3X = width * 3.0 / 4.0 + 2;
 
     _largeDelayTimeKnob = [self addLargeKnobWithLabel:@"" atX:col1X y:largeTopY color:indicatorColor];
     _largeDelayRepeatKnob = [self addLargeKnobWithLabel:@"" atX:col2X y:largeTopY color:indicatorColor];
