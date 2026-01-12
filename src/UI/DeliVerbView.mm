@@ -231,11 +231,11 @@ using namespace DeliVerb;
     // Positions calibrated for the pedal image layout
     // Top row: Delay Time, Delay Repeat, Delay Mix
     // Bottom row: Reverb Size, Reverb Style, Reverb Mix
-    CGFloat largeTopY = 524;
-    CGFloat largeBottomY = 388;
+    CGFloat largeTopY = 525;
+    CGFloat largeBottomY = 389;
     CGFloat col1X = width / 4.0 - 2;
     CGFloat col2X = width / 2.0;
-    CGFloat col3X = width * 3.0 / 4.0 + 2;
+    CGFloat col3X = width * 3.0 / 4.0 + 4;
 
     _largeDelayTimeKnob = [self addLargeKnobWithLabel:@"" atX:col1X y:largeTopY color:indicatorColor];
     _largeDelayRepeatKnob = [self addLargeKnobWithLabel:@"" atX:col2X y:largeTopY color:indicatorColor];
@@ -336,9 +336,9 @@ using namespace DeliVerb;
 }
 
 - (SSKnob *)addLargeKnobWithLabel:(NSString *)label atX:(CGFloat)x y:(CGFloat)y color:(NSColor *)color {
-    CGFloat knobWidth = 100;
-    CGFloat knobHeight = 120;
-    CGFloat largeKnobSize = 67.0;
+    CGFloat knobWidth = 90;
+    CGFloat knobHeight = 110;
+    CGFloat largeKnobSize = 58.0;
 
     SSKnob *knob = [[SSKnob alloc] initWithFrame:NSMakeRect(x - knobWidth/2, y - knobHeight/2, knobWidth, knobHeight)
                                            label:label];
